@@ -1,0 +1,16 @@
+{
+  "name": "taxonomies",
+  "private": "true",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn workspace client start",
+    "build:server": "yarn workspace server build"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "workspaces": [
+    "packages/*"
+  ]
+}
