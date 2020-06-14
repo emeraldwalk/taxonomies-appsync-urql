@@ -1,0 +1,14 @@
+type Category {
+  name: String!
+  value: String!
+}
+
+type Content {
+  categories: [Category!]
+  tags: [String!]
+  value: String!
+}
+
+type Query {
+  getContent: [Content!]!
+}

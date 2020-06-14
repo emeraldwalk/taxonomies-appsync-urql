@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn workspace client start",
-    "build:server": "yarn workspace server build"
+    "build:server": "yarn workspace server build",
+    "deploy": "yarn workspace server cdk deploy",
+    "synth": "yarn workspace server cdk synth"
   },
   "dependencies": {},
   "devDependencies": {},

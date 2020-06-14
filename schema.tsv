@@ -1,0 +1,13 @@
+pk       	sk           	data
+TAG      	tag-a
+TAG      	tag-b
+TAG      	tag-c
+CATEGORY 	aaa          	value-a
+CATEGORY 	aaa          	value-b
+CATEGORY 	bbb          	value-a
+CATEGORY 	bbb          	value-b
+CATEGORY 	bbb          	value-c
+CONTENT  	content-uuid 	{tags,categories,value}
+CONTENT  	content-uuid 	{tags,categories,value}
+CONTENT  	content-uuid 	{tags,categories,value}
+CONTENT  	content-uuid 	{tags,categories,value}
