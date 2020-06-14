@@ -7,8 +7,9 @@
   "scripts": {
     "start": "yarn workspace client start",
     "build:server": "yarn workspace server build",
-    "deploy": "yarn workspace server cdk deploy",
-    "synth": "yarn workspace server cdk synth"
+    "deploy": "yarn build:server && yarn workspace server cdk deploy",
+    "synth": "yarn workspace server cdk synth",
+    "codegen": "yarn workspace client codegen"
   },
   "dependencies": {},
   "devDependencies": {},

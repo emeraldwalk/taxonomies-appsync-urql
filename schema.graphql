@@ -11,4 +11,5 @@ type Content {
 
 type Query {
   getContent: [Content!]!
+  putContent(id: String, value: String!): Boolean!
 }

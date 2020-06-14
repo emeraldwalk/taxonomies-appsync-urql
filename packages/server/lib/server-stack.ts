@@ -18,7 +18,7 @@ export class ServerStack extends Stack {
     const tableName = 'taxonomies'
 
     const api = new CfnGraphQLApi(this, name(tableName, 'Api'), {
-      name: 'taxonomies-api', // TODO: what should naming convention be here?
+      name: name(tableName, 'Api'),
       authenticationType: 'API_KEY',
     })
 
@@ -29,12 +29,12 @@ export class ServerStack extends Stack {
     const apiSchema = new CfnGraphQLSchema(this, name(tableName, 'Schema'), {
       apiId: api.attrApiId,
       definition: String(
-        readFileSync(join(__dirname, '../../../schema.graphql'))
+        readFileSync(join(__dirname, '..', '..', '..', 'schema.graphql'))
       ),
     })
 
     const table = new Table(this, name(tableName, 'Table'), {
-      tableName,
+      tableName: name(tableName),
       partitionKey: {
         name: 'pk',
         type: AttributeType.STRING,
@@ -60,27 +60,24 @@ export class ServerStack extends Stack {
       serviceRoleArn: tableRole.roleArn,
     })
 
-    const getContentResolver = new CfnResolver(
-      this,
-      'GetContentQueryResolver',
-      {
-        apiId: api.attrApiId,
-        typeName: 'Query',
-        fieldName: 'getContent',
-        dataSourceName: dataSource.name,
-        requestMappingTemplate: `{
-          "version": "2017-02-28",
-          "operation": "Query",
-          "query": {
-            "expression": "pk = :pk",
-            "expressionValues": {
-                ":pk": "CONTENT"
-            }
-          }
-        }`,
-        responseMappingTemplate: '$util.toJson($ctx.result)',
-      }
-    )
+    const putContentResolver = new CfnResolver(this, 'PutContentResolver', {
+      apiId: api.attrApiId,
+      typeName: 'Mutation',
+      fieldName: 'putContent',
+      dataSourceName: dataSource.name,
+      requestMappingTemplate: resolverTemplate('putContent.req.vtl'),
+      responseMappingTemplate: resolverTemplate('true.res.vtl'),
+    })
+    putContentResolver.addDependsOn(apiSchema)
+
+    const getContentResolver = new CfnResolver(this, 'GetContentResolver', {
+      apiId: api.attrApiId,
+      typeName: 'Query',
+      fieldName: 'getContent',
+      dataSourceName: dataSource.name,
+      requestMappingTemplate: resolverTemplate('getContent.req.vtl'),
+      responseMappingTemplate: resolverTemplate('dataList.res.vtl'),
+    })
     getContentResolver.addDependsOn(apiSchema)
   }
 }
@@ -105,9 +102,24 @@ function createDynamoDBFullAccessRole(
   return taxonomiesTableRole
 }
 
-function name(prefix: string, suffix: string) {
-  prefix = prefix[0].toUpperCase() + prefix.slice(1)
-  suffix = suffix[0].toUpperCase() + suffix.slice(1)
+function name(prefix: string, suffix = '') {
+  if (prefix) {
+    prefix = prefix[0].toUpperCase() + prefix.slice(1)
+  }
 
-  return `${prefix}${suffix}`
+  if (suffix.length) {
+    suffix = suffix[0].toUpperCase() + suffix.slice(1)
+  }
+
+  const name = `${prefix}${suffix}`
+
+  if (name.length === 0) {
+    throw Error('prefix or suffix must have at least 1 character.')
+  }
+
+  return name
+}
+
+function resolverTemplate(name: string): string {
+  return String(readFileSync(join(__dirname, '..', 'resolvers', name)))
 }

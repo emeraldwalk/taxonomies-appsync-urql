@@ -1,0 +1,6 @@
+#set($result = [])
+#foreach( $item in $ctx.result.items )
+  $util.qr($result.add($item.data))
+#end
+
+$result

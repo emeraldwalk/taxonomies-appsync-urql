@@ -1,0 +1,10 @@
+query GetContent {
+  getContent {
+    categories {
+      name
+      value
+    }
+    tags
+    value
+  }
+}

@@ -1,0 +1,19 @@
+#set($input = $ctx.args.input)
+#set($id = $util.defaultIfNull($input.id, $util.autoId()))
+#set($sk = "CONTENT_${id}")
+#set($data = {
+  "id": $id,
+  "value": $input.value
+})
+
+{
+  "version" : "2018-05-29",
+  "operation" : "PutItem",
+  "key": {
+    "pk" : { "S": "CONTENT" },
+    "sk" : { "S": "${sk}" }
+  },
+  "attributeValues" : $util.dynamodb.toMapValuesJson({
+    "data" : $utils.toJson($data)
+  })
+}
