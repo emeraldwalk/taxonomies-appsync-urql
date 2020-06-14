@@ -4,12 +4,14 @@
     "queryType": {
       "name": "Query"
     },
-    "mutationType": null,
+    "mutationType": {
+      "name": "Mutation"
+    },
     "subscriptionType": null,
     "types": [
       {
         "kind": "OBJECT",
-        "name": "Category",
+        "name": "CategoryResult",
         "description": null,
         "fields": [
           {
@@ -62,7 +64,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Content",
+        "name": "ContentResult",
         "description": null,
         "fields": [
           {
@@ -77,7 +79,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Category",
+                  "name": "CategoryResult",
                   "ofType": null
                 }
               }
@@ -128,57 +130,133 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "Query",
+        "kind": "INPUT_OBJECT",
+        "name": "CategoryInput",
         "description": null,
-        "fields": [
+        "fields": null,
+        "inputFields": [
           {
-            "name": "getContent",
+            "name": "name",
             "description": null,
-            "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "LIST",
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ContentInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "categories",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Content",
-                    "ofType": null
-                  }
+                  "kind": "INPUT_OBJECT",
+                  "name": "CategoryInput",
+                  "ofType": null
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "defaultValue": null
           },
+          {
+            "name": "tags",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Mutation",
+        "description": null,
+        "fields": [
           {
             "name": "putContent",
             "description": null,
             "args": [
               {
-                "name": "id",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null
-              },
-              {
-                "name": "value",
+                "name": "input",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "ContentInput",
                     "ofType": null
                   }
                 },
@@ -210,6 +288,41 @@
         "fields": null,
         "inputFields": null,
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Query",
+        "description": null,
+        "fields": [
+          {
+            "name": "getContent",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ContentResult",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },

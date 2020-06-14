@@ -39,8 +39,12 @@ export class ServerStack extends Stack {
         name: 'pk',
         type: AttributeType.STRING,
       },
+      sortKey: {
+        name: 'sk',
+        type: AttributeType.STRING,
+      },
       billingMode: BillingMode.PAY_PER_REQUEST,
-      removalPolicy: RemovalPolicy.DESTROY, // NOT recommended for production code
+      removalPolicy: RemovalPolicy.RETAIN,
     })
 
     const tableRole = createDynamoDBFullAccessRole(
@@ -69,6 +73,7 @@ export class ServerStack extends Stack {
       responseMappingTemplate: resolverTemplate('true.res.vtl'),
     })
     putContentResolver.addDependsOn(apiSchema)
+    putContentResolver.addDependsOn(dataSource)
 
     const getContentResolver = new CfnResolver(this, 'GetContentResolver', {
       apiId: api.attrApiId,
@@ -79,6 +84,7 @@ export class ServerStack extends Stack {
       responseMappingTemplate: resolverTemplate('dataList.res.vtl'),
     })
     getContentResolver.addDependsOn(apiSchema)
+    getContentResolver.addDependsOn(dataSource)
   }
 }
 

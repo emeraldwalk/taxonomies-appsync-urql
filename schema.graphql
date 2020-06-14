@@ -1,15 +1,30 @@
-type Category {
+type CategoryResult {
   name: String!
   value: String!
 }
 
-type Content {
-  categories: [Category!]
+type ContentResult {
+  categories: [CategoryResult!]
   tags: [String!]
   value: String!
 }
 
+input CategoryInput {
+  name: String!
+  value: String!
+}
+
+input ContentInput {
+  id: String
+  categories: [CategoryInput!]
+  tags: [String!]
+  value: String!
+}
+
+type Mutation {
+  putContent(input: ContentInput!): Boolean!
+}
+
 type Query {
-  getContent: [Content!]!
-  putContent(id: String, value: String!): Boolean!
+  getContent: [ContentResult!]!
 }

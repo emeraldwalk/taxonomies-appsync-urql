@@ -29,7 +29,8 @@
     "@graphql-codegen/introspection": "1.15.3",
     "@graphql-codegen/typescript": "1.15.3",
     "@graphql-codegen/typescript-operations": "^1.15.3",
-    "@graphql-codegen/typescript-urql": "^1.15.3"
+    "@graphql-codegen/typescript-urql": "^1.15.3",
+    "@urql/devtools": "^2.0.2"
   },
   "eslintConfig": {
     "extends": "react-app"

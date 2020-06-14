@@ -12,29 +12,44 @@ export type Scalars = {
   Float: number;
 };
 
-export type Category = {
-  __typename?: 'Category';
+export type CategoryResult = {
+  __typename?: 'CategoryResult';
   name: Scalars['String'];
   value: Scalars['String'];
 };
 
-export type Content = {
-  __typename?: 'Content';
-  categories?: Maybe<Array<Category>>;
+export type ContentResult = {
+  __typename?: 'ContentResult';
+  categories?: Maybe<Array<CategoryResult>>;
   tags?: Maybe<Array<Scalars['String']>>;
   value: Scalars['String'];
 };
 
-export type Query = {
-  __typename?: 'Query';
-  getContent: Array<Content>;
+export type CategoryInput = {
+  name: Scalars['String'];
+  value: Scalars['String'];
+};
+
+export type ContentInput = {
+  id?: Maybe<Scalars['String']>;
+  categories?: Maybe<Array<CategoryInput>>;
+  tags?: Maybe<Array<Scalars['String']>>;
+  value: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
   putContent: Scalars['Boolean'];
 };
 
 
-export type QueryPutContentArgs = {
-  id?: Maybe<Scalars['String']>;
-  value: Scalars['String'];
+export type MutationPutContentArgs = {
+  input: ContentInput;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  getContent: Array<ContentResult>;
 };
 
 export type GetContentQueryVariables = Exact<{ [key: string]: never; }>;
@@ -43,11 +58,11 @@ export type GetContentQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetContentQuery = (
   { __typename?: 'Query' }
   & { getContent: Array<(
-    { __typename?: 'Content' }
-    & Pick<Content, 'tags' | 'value'>
+    { __typename?: 'ContentResult' }
+    & Pick<ContentResult, 'tags' | 'value'>
     & { categories?: Maybe<Array<(
-      { __typename?: 'Category' }
-      & Pick<Category, 'name' | 'value'>
+      { __typename?: 'CategoryResult' }
+      & Pick<CategoryResult, 'name' | 'value'>
     )>> }
   )> }
 );
