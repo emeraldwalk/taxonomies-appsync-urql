@@ -1,14 +1,19 @@
 import React from 'react'
-import { useGetContentQuery } from '../generated/graphql'
+import { useGetContentQuery } from '../api'
 
-function App() {
+export interface AppProps {}
+
+const App: React.FC<AppProps> = () => {
   const [result] = useGetContentQuery()
-  const { data, fetching, error } = result
+  const contentList = result.data!.getContent
 
-  if (fetching) return <div>Loading...</div>
-  if (error) return <div>Error</div>
-
-  return <div>{data?.getContent.length}</div>
+  return (
+    <ul>
+      {contentList.map(({ id, value }) => (
+        <li key={id}>{value}</li>
+      ))}
+    </ul>
+  )
 }
 
 export default App

@@ -2,7 +2,7 @@ overwrite: true
 schema: '/Users/bingles/code/taxonomies/schema.graphql'
 documents: 'src/**/*.graphql'
 generates:
-  src/generated/graphql.ts:
+  src/api/graphql-generated.ts:
     config:
       withComponent: false
       withHooks: true
@@ -10,6 +10,6 @@ generates:
       - 'typescript'
       - 'typescript-operations'
       - 'typescript-urql'
-  ./graphql.schema.json:
-    plugins:
-      - 'introspection'
+  # ./graphql.schema.json:
+  #   plugins:
+  #     - 'introspection'

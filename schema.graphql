@@ -4,6 +4,7 @@ type CategoryResult {
 }
 
 type ContentResult {
+  id: String!
   categories: [CategoryResult!]
   tags: [String!]
   value: String!

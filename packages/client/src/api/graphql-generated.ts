@@ -20,6 +20,7 @@ export type CategoryResult = {
 
 export type ContentResult = {
   __typename?: 'ContentResult';
+  id: Scalars['String'];
   categories?: Maybe<Array<CategoryResult>>;
   tags?: Maybe<Array<Scalars['String']>>;
   value: Scalars['String'];
@@ -59,7 +60,7 @@ export type GetContentQuery = (
   { __typename?: 'Query' }
   & { getContent: Array<(
     { __typename?: 'ContentResult' }
-    & Pick<ContentResult, 'tags' | 'value'>
+    & Pick<ContentResult, 'id' | 'tags' | 'value'>
     & { categories?: Maybe<Array<(
       { __typename?: 'CategoryResult' }
       & Pick<CategoryResult, 'name' | 'value'>
@@ -71,6 +72,7 @@ export type GetContentQuery = (
 export const GetContentDocument = gql`
     query GetContent {
   getContent {
+    id
     categories {
       name
       value
