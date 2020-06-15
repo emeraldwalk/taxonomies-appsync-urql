@@ -1,5 +1,5 @@
 overwrite: true
-schema: '/Users/bingles/code/taxonomies/schema.graphql'
+schema: '../../schema.graphql'
 documents: 'src/**/*.graphql'
 generates:
   src/api/graphql-generated.ts:
